@@ -12,4 +12,20 @@ public class Product {
         this.description =description;
         this.price =price;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

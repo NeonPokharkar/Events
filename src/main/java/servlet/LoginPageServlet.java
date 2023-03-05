@@ -25,10 +25,17 @@ public class LoginPageServlet extends HttpServlet {
             String passwordcheck=database.getUserPassword(name);
             System.out.println(passwordcheck+":"+password);
             HttpSession session=req.getSession();
+            int designation=database.getUserDesignation(name);
             if(passwordcheck.equals(password)){
                 session.setAttribute("name",name);
                 session.setAttribute("password",password);
-                resp.sendRedirect("/dashboard");
+                if(designation==0)
+                {
+                    resp.sendRedirect("/dashboard");
+                }
+                else {
+                    resp.sendRedirect("/adminconsole");
+                }
             }
             else {
                 resp.sendRedirect("/home");

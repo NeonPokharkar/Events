@@ -1,6 +1,7 @@
 package servlet;
 
 import JDBC.Database;
+import model.Booking;
 import model.User;
 
 import javax.servlet.ServletException;
@@ -17,10 +18,17 @@ import java.util.ArrayList;
 public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session=req.getSession();
-        String name=(String)session.getAttribute("name");
-        req.setAttribute("name",name);
-        req.getRequestDispatcher("WEB-INF/classes/dashboard.jsp").forward(req,resp);
+        try {
+            Database database=new Database();
+            HttpSession session=req.getSession();
+            String name=(String)session.getAttribute("name");
+            ArrayList<Booking> bookings=database.getBookingsName(name);
+            req.setAttribute("bookingsList",bookings);
+            req.setAttribute("name",name);
+            req.getRequestDispatcher("WEB-INF/classes/dashboard.jsp").forward(req,resp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -9,4 +9,16 @@ public class Venue {
         this.name =name;
         this.address =address;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
